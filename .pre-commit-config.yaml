@@ -1,0 +1,62 @@
+repos:
+  # Pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0 # See the release notes at https://github.com/pre-commit/pre-commit-hooks/releases
+    hooks:
+      - id: end-of-file-fixer
+        name: end of file fixer
+        description: Let's be sure that a new line has been added to the end of the file.
+      - id: trailing-whitespace
+        name: trailing whitespace
+        description: Automatically remove trailing whitespace before committing.
+      - id: check-merge-conflict
+        name: check merge conflict
+        description: Check for files that contain merge conflict strings.
+        stages: [commit]
+      - id: check-executables-have-shebangs
+        name: check executables have shebangs
+        description: Checks that non-binary executables have a proper shebang.
+        stages: [commit]
+      - id: detect-private-key
+        name: detect private key
+        description: Checks for the existence of private keys.
+        stages: [commit]
+      - id: check-symlinks
+        name: check symlinks
+        description: Checks for symlinks which do not point to anything.
+        stages: [commit]
+      - id: mixed-line-ending
+        name: mixed line ending
+        description: Replaces or checks mixed line ending.
+        stages: [commit]
+      - id: check-yaml
+        name: check yaml
+        description: checks yaml files for parseable syntax.
+        entry: check-yaml
+        language: python
+        types: [yaml]
+
+  # Terraform
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.82.0 # See the release notes at https://github.com/antonbabenko/pre-commit-terraform/releases
+    hooks:
+      - id: terraform_fmt
+        name: terraform fmt
+        description: Checks if the terraform code format is valid.
+        stages: [commit]
+      - id: terraform_tflint
+        name: terraform tflint
+        description: Automatic terraform linting.
+        stages: [commit]
+        exclude: (examples)
+      - id: terraform_validate
+        name: terraform validate
+        description: Terraform code validator.
+        stages: [commit]
+        exclude: (examples)
+      - id: terraform_docs
+        name: terraform docs
+        description: Generates terraform documentation.
+        args:
+          - --args=--config=.terraform-docs.yml
+        stages: [commit]

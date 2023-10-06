@@ -1,0 +1,22 @@
+name: Static code analysis
+
+on:
+  pull_request:
+    paths-ignore:
+      - "**.svg"
+  # push:
+  #   # paths-ignore:
+  #   #   - "**.md"
+
+jobs:
+  tools:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+      - name: Install all the tools from .tool-versions file
+        uses: asdf-vm/actions/install@v2
+      - name: Install python for pre-commit purposes
+        uses: actions/setup-python@v4
+      - name: Exectute all the pre-commit tasks from .pre-commit-config.yaml file
+        uses: pre-commit/action@v3.0.0

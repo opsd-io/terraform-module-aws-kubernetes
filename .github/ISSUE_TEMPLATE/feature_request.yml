@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest new functionality
+title: "[FEATURE]: "
+labels: ["enhancement"]
+body:
+- type: checkboxes
+  attributes:
+    label: Is there an existing issue for this?
+    description: Are there other open or closed issues or Pull Requests that match your suggestion?
+    options:
+    - label: I have searched the existing issues
+      required: true
+- type: textarea
+  attributes:
+    label: Is your feature request related to a problem? Please describe
+    description: A clear and concise description of what the problem is.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Describe the solution you'd like
+    description: A clear and concise description of what you want to happen.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Describe alternatives you've considered
+    description: A clear and concise description of any alternative solutions or features you've considered.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Anything else?
+    description: |
+      Links? References? Mockups? Anything that will give us more context about the feature you are encountering!
+
+      **Tip**: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+      **Tip**: You can use GitHub Gist to share your concepts/ideas.
+  validations:
+    required: true

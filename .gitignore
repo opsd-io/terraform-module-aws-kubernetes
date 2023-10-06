@@ -1,0 +1,30 @@
+# Terraform
+
+## local directories
+.terraform*/
+.terraform/
+
+# lock & state files
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+
+# Code Editors
+
+## VI
+*.swp
+
+## Visual Studio Code
+*.code-workspace
+
+# Misc
+
+## MacOS
+**/.DS_Store
+**/.CFUserTextEncoding
+**/.Trash/
+**/$RECYCLE.BIN/
+
+## direnv
+/.envrc.private
+/.direnv/
