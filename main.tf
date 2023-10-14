@@ -8,6 +8,18 @@ terraform {
   }
 }
 
+data "aws_caller_identity" "current" {
+  # no arguments
+}
+
+data "aws_region" "current" {
+  # no arguments
+}
+
+data "aws_eks_cluster_auth" "main" {
+  name = aws_eks_cluster.main.name
+}
+
 resource "aws_eks_cluster" "main" {
   name     = var.name
   version  = var.k8s_version
