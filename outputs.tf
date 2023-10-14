@@ -18,6 +18,11 @@ output "version" {
   value = aws_eks_cluster.main.version
 }
 
+output "region" {
+  description = "The region of the state storage resources."
+  value       = data.aws_region.current.name
+}
+
 output "cluster_ca" {
   value = base64decode(aws_eks_cluster.main.certificate_authority[0].data)
 }
