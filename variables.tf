@@ -65,3 +65,29 @@ variable "cluster_log_retention_in_days" {
   type        = number
   default     = 7
 }
+
+variable "auth_map_accounts" {
+  description = "Maps IAM ARN from these accounts to username."
+  type        = list(string)
+  default     = ["current"]
+}
+
+variable "auth_map_roles" {
+  description = "Maps an IAM role to a username and set of groups."
+  type = list(object({
+    role_arn = string
+    username = optional(string)
+    groups   = list(string)
+  }))
+  default = []
+}
+
+variable "auth_map_users" {
+  description = "Maps an IAM user to a static username and set of groups."
+  type = list(object({
+    user_arn = string
+    username = optional(string)
+    groups   = list(string)
+  }))
+  default = []
+}
