@@ -71,6 +71,14 @@ variable "ec2_ssh_key" {
   type        = string
   default     = null
 }
+
+variable "source_security_group_ids" {
+  description = "Set of EC2 Security Group IDs to allow SSH access (port 22) from on the worker nodes."
+  type        = set(string)
+  default     = null
+}
+
+
 variable "node_group_subnet_ids" {
   description = "Identifiers of EC2 Subnets to associate with the EKS Node Groups."
   type        = set(string)
