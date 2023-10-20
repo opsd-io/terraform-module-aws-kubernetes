@@ -1,21 +1,26 @@
 output "id" {
-  value = aws_eks_cluster.main.id
+  description = "The ID of the cluster."
+  value       = aws_eks_cluster.main.id
 }
 
 output "arn" {
-  value = aws_eks_cluster.main.arn
+  description = "The ARN of the cluster."
+  value       = aws_eks_cluster.main.arn
 }
 
 output "name" {
-  value = aws_eks_cluster.main.name
+  description = "The name of the cluster."
+  value       = aws_eks_cluster.main.name
 }
 
 output "endpoint" {
-  value = aws_eks_cluster.main.endpoint
+  description = "Endpoint for your Kubernetes API server."
+  value       = aws_eks_cluster.main.endpoint
 }
 
 output "version" {
-  value = aws_eks_cluster.main.version
+  description = "The Kubernetes master version."
+  value       = aws_eks_cluster.main.version
 }
 
 output "region" {
@@ -24,41 +29,51 @@ output "region" {
 }
 
 output "cluster_ca" {
-  value = base64decode(aws_eks_cluster.main.certificate_authority[0].data)
+  description = "Decoded CA certificate of the cluster."
+  value       = base64decode(aws_eks_cluster.main.certificate_authority[0].data)
 }
 
 output "oidc_issuer" {
-  value = aws_eks_cluster.main.identity[0].oidc[0].issuer
+  description = "Issuer URL for the OpenID Connect identity provider."
+  value       = aws_eks_cluster.main.identity[0].oidc[0].issuer
 }
 
 output "openid_arn" {
-  value = aws_iam_openid_connect_provider.eks_cluster.arn
+  description = "The ARN assigned by AWS for IAM OpenID Connect of the cluster."
+  value       = aws_iam_openid_connect_provider.eks_cluster.arn
 }
 
 output "openid_sub" {
-  value = format("%s:sub", trimprefix(aws_iam_openid_connect_provider.eks_cluster.url, "https://"))
+  description = "The URL of the identity provider. Corresponds to the iss claim."
+  value       = format("%s:sub", trimprefix(aws_iam_openid_connect_provider.eks_cluster.url, "https://"))
 }
 
 output "cluster_role_arn" {
-  value = aws_iam_role.cluster.arn
+  description = "The ARN of the IAM role that provides permissions for the Kubernetes control plane."
+  value       = aws_iam_role.cluster.arn
 }
 
 output "cluster_role_name" {
-  value = aws_iam_role.cluster.name
+  description = "The name of the IAM role that provides permissions for the Kubernetes control plane."
+  value       = aws_iam_role.cluster.name
 }
 
 output "node_role_arn" {
-  value = aws_iam_role.node.arn
+  description = "The ARN of the IAM Role that provides permissions for the EKS Node Group."
+  value       = aws_iam_role.node.arn
 }
 
 output "node_role_name" {
-  value = aws_iam_role.node.name
+  description = "The name of the IAM Role that provides permissions for the EKS Node Group."
+  value       = aws_iam_role.node.name
 }
 
 output "fargate_role_arn" {
-  value = aws_iam_role.fargate.arn
+  description = "The ARN of the IAM Role that provides permissions for the EKS Fargate Profile."
+  value       = aws_iam_role.fargate.arn
 }
 
 output "fargate_role_name" {
-  value = aws_iam_role.fargate.name
+  description = "The name of the IAM Role that provides permissions for the EKS Fargate Profile."
+  value       = aws_iam_role.fargate.name
 }
