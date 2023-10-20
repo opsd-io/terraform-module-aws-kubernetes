@@ -66,6 +66,20 @@ variable "cluster_log_retention_in_days" {
   default     = 7
 }
 
+variable "fargate_subnet_ids" {
+  description = "Identifiers of private EC2 Subnets to associate with the EKS Fargate Profile."
+  type        = set(string)
+  default     = []
+}
+
+variable "fargate_profiles" {
+  type = map(object({
+    namespace = string
+    labels    = optional(map(string))
+  }))
+  default = {}
+}
+
 variable "auth_map_accounts" {
   description = "Maps IAM ARN from these accounts to username."
   type        = list(string)
