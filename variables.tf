@@ -77,7 +77,7 @@ variable "auth_map_roles" {
   type = list(object({
     role_arn = string
     username = optional(string)
-    groups   = list(string)
+    groups   = optional(list(string))
   }))
   default = []
 }
@@ -87,7 +87,7 @@ variable "auth_map_users" {
   type = list(object({
     user_arn = string
     username = optional(string)
-    groups   = list(string)
+    groups   = optional(list(string))
   }))
   default = []
 }
