@@ -43,12 +43,16 @@ resource "aws_eks_cluster" "main" {
     service_ipv4_cidr = "172.20.0.0/16"
   }
 
-  #   encryption_config {
-  #     provider {
-  #       key_arn = "aaa"
-  #     }
-  #     resources = ["secrets"]
-  #   }
+  dynamic "encryption_config" {
+    for_each = var.encryption_key_arn != null ? [1] : []
+    content {
+      provider {
+        key_arn = var.encryption_key_arn
+      }
+      resources = ["secrets"]
+
+    }
+  }
 
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSClusterPolicy,
