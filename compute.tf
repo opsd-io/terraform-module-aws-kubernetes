@@ -1,7 +1,12 @@
+locals {
+  fixed_names = true
+}
+
 resource "aws_eks_node_group" "main" {
   for_each = var.node_groups
 
-  node_group_name_prefix = each.key
+  node_group_name        = local.fixed_names ? each.key : null
+  node_group_name_prefix = local.fixed_names ? null : each.key
   cluster_name           = aws_eks_cluster.main.name
   node_role_arn          = aws_iam_role.node.arn
   subnet_ids             = coalesce(each.value.subnet_ids, var.node_group_subnet_ids)
@@ -50,6 +55,7 @@ resource "aws_eks_node_group" "main" {
   }
 
   lifecycle {
+    # only if node_group_name_prefix is in use, but (local.fixed_names == false) does not work..
     create_before_destroy = true
     ignore_changes = [
       # scaling_config[0].desired_size, # needed for autoscaling
