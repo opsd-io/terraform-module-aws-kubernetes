@@ -48,6 +48,12 @@ variable "public_access_cidrs" {
   ]
 }
 
+variable "encryption_key_arn" {
+  description = "ARN of the KMS customer master key for secrets encryption."
+  type        = string
+  default     = null
+}
+
 # EKS control plane logs
 
 variable "enabled_cluster_log_types" {
