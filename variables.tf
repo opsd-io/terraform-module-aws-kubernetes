@@ -15,6 +15,7 @@ variable "k8s_version" {
   default     = null
 }
 
+# EKS vpc_config
 
 variable "subnet_ids" {
   description = "List of subnet IDs. Must be in at least two different availability zones."
@@ -47,6 +48,7 @@ variable "public_access_cidrs" {
   ]
 }
 
+# EKS control plane logs
 
 variable "enabled_cluster_log_types" {
   description = "List of the desired control plane logging to enable."
@@ -65,6 +67,8 @@ variable "cluster_log_retention_in_days" {
   type        = number
   default     = 7
 }
+
+# Worker nodes
 
 variable "ec2_ssh_key" {
   description = "The EC2 Key Pair name that provides access to the worker nodes."
@@ -105,6 +109,8 @@ variable "node_groups" {
   default = {}
 }
 
+# Fargate pods
+
 variable "fargate_subnet_ids" {
   description = "Identifiers of private EC2 Subnets to associate with the EKS Fargate Profiles."
   type        = set(string)
@@ -119,6 +125,8 @@ variable "fargate_profiles" {
   }))
   default = {}
 }
+
+# kube-system/aws-auth configmap
 
 variable "auth_map_accounts" {
   description = "Maps IAM ARN from these accounts to username."
