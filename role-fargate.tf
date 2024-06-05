@@ -16,7 +16,7 @@ resource "aws_iam_role" "fargate" {
   assume_role_policy = data.aws_iam_policy_document.assume_role_fargate.json
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonEKSFargatePodExecutionRolePolicy" {
+resource "aws_iam_role_policy_attachment" "eks_fargate_pod_execution_role_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
   role       = aws_iam_role.fargate.name
 }

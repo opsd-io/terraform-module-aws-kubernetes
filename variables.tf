@@ -96,6 +96,7 @@ variable "node_group_subnet_ids" {
 }
 
 variable "node_groups" {
+  description = "Map of EKS Node Group definitions."
   type = map(object({
     subnet_ids    = optional(set(string))
     ami_type      = optional(string, "AL2_x86_64")
@@ -124,6 +125,7 @@ variable "fargate_subnet_ids" {
 }
 
 variable "fargate_profiles" {
+  description = "Map of EKS Fargate Profile definitions."
   type = map(object({
     subnet_ids = optional(set(string))
     namespace  = string
@@ -158,4 +160,24 @@ variable "auth_map_users" {
     groups   = optional(list(string))
   }))
   default = []
+}
+
+variable "nodes_role_arns" {
+  description = "Additional IAM role ARNs of Node Groups managed externally."
+  type        = list(string)
+  default     = []
+}
+
+variable "fargate_role_arns" {
+  description = "Additional IAM role ARNs of Fargate Profiles managed externally."
+  type        = list(string)
+  default     = []
+}
+
+variable "masters_role_arns" {
+  description = "List of IAM role to set as system:masters. Shortcut for auth_map_roles."
+  type        = list(string)
+  default = [
+    # "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/devops",
+  ]
 }

@@ -16,7 +16,7 @@ resource "aws_iam_role" "cluster" {
   assume_role_policy = data.aws_iam_policy_document.assume_role_cluster.json
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
+resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.cluster.name
 }

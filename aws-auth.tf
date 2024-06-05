@@ -3,8 +3,7 @@ locals {
     current = data.aws_caller_identity.current.account_id
   }
 
-  # TODO: merge with extra roles from vars
-  nodes_role_arns = [aws_iam_role.node.arn]
+  nodes_role_arns = concat(var.nodes_role_arns, [aws_iam_role.node.arn])
   nodes_map = [for arn in local.nodes_role_arns : {
     rolearn  = arn
     username = "system:node:{{EC2PrivateDNSName}}"
@@ -14,8 +13,7 @@ locals {
     ]
   }]
 
-  # TODO: merge with extra roles from vars
-  fargate_role_arns = [aws_iam_role.fargate.arn]
+  fargate_role_arns = concat(var.fargate_role_arns, [aws_iam_role.fargate.arn])
   fargate_map = [for arn in local.fargate_role_arns : {
     rolearn  = arn
     username = "system:node:{{SessionName}}"
@@ -26,9 +24,7 @@ locals {
     ]
   }]
 
-  # TODO: merge with extra roles from vars
-  masters_role_arns = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/devops"]
-  masters_map = [for arn in local.masters_role_arns : {
+  masters_map = [for arn in var.masters_role_arns : {
     rolearn  = arn
     username = "master:{{AccountID}}:{{SessionName}}"
     groups = [

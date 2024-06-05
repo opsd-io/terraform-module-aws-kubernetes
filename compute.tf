@@ -58,14 +58,14 @@ resource "aws_eks_node_group" "main" {
     # only if node_group_name_prefix is in use, but (local.fixed_names == false) does not work..
     create_before_destroy = true
     ignore_changes = [
-      # scaling_config[0].desired_size, # needed for autoscaling
+      scaling_config[0].desired_size, # needed for autoscaling to work
     ]
   }
 
   depends_on = [
     aws_eks_cluster.main,
     aws_iam_role.node,
-    aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.eks_worker_node_policy,
     kubernetes_config_map.aws_auth,
   ]
 
@@ -91,7 +91,7 @@ resource "aws_eks_fargate_profile" "main" {
   depends_on = [
     aws_eks_cluster.main,
     aws_iam_role.fargate,
-    aws_iam_role_policy_attachment.AmazonEKSFargatePodExecutionRolePolicy,
+    aws_iam_role_policy_attachment.eks_fargate_pod_execution_role_policy,
     kubernetes_config_map.aws_auth,
   ]
 

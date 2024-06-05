@@ -1,9 +1,18 @@
 terraform {
-  required_version = ">= 1.3.1"
+  required_version = ">= 1.5.5"
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.0"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0"
     }
   }
 }
@@ -14,10 +23,6 @@ data "aws_caller_identity" "current" {
 
 data "aws_region" "current" {
   # no arguments
-}
-
-data "aws_eks_cluster_auth" "main" {
-  name = aws_eks_cluster.main.name
 }
 
 resource "aws_eks_cluster" "main" {
@@ -55,9 +60,9 @@ resource "aws_eks_cluster" "main" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.AmazonEKSFargatePodExecutionRolePolicy,
+    aws_iam_role_policy_attachment.eks_cluster_policy,
+    aws_iam_role_policy_attachment.eks_worker_node_policy,
+    aws_iam_role_policy_attachment.eks_fargate_pod_execution_role_policy,
     aws_cloudwatch_log_group.cluster,
   ]
 }

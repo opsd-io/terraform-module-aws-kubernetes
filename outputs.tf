@@ -24,7 +24,7 @@ output "version" {
 }
 
 output "region" {
-  description = "The region of the state storage resources."
+  description = "The region of of the cluster."
   value       = data.aws_region.current.name
 }
 
